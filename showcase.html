@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delivery Kar | UI Showcase</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #050505;
+            --accent: #FF6B00;
+            --card: #141417;
+            --text: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'Outfit', sans-serif;
+            overflow-x: hidden;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            color: #a0a0a5;
+            font-size: 1.2rem;
+        }
+
+        .showcase-grid {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            align-items: flex-start;
+            flex-wrap: nowrap;
+            overflow-x: auto;
+            padding-bottom: 4rem;
+        }
+
+        .device-wrapper {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .device-label {
+            background: var(--card);
+            padding: 0.5rem 1.5rem;
+            border-radius: 100px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            font-weight: 600;
+        }
+
+        .iframe-container {
+            background: #1a1a1e;
+            border-radius: 20px;
+            padding: 10px;
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            position: relative;
+        }
+
+        /* Responsive Framing */
+        .desktop {
+            width: 1000px;
+            height: 700px;
+        }
+
+        .tablet {
+            width: 768px;
+            height: 900px;
+        }
+
+        .mobile {
+            width: 375px;
+            height: 750px;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 12px;
+            background: white;
+        }
+
+        /* Scrollbar styling */
+        .showcase-grid::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .showcase-grid::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+
+        .showcase-grid::-webkit-scrollbar-thumb {
+            background: var(--card);
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Delivery <span style="color:var(--accent)">Kar</span></h1>
+        <p>Responsive UI Showcase & Design System</p>
+    </header>
+
+    <div class="showcase-grid">
+        <!-- Desktop View -->
+        <div class="device-wrapper">
+            <div class="device-label">Wide Desktop (1440px)</div>
+            <div class="iframe-container desktop">
+                <iframe src="index.html" title="Desktop View"></iframe>
+            </div>
+        </div>
+
+        <!-- Tablet View -->
+        <div class="device-wrapper">
+            <div class="device-label">Tablet (768px)</div>
+            <div class="iframe-container tablet">
+                <iframe src="index.html" title="Tablet View"></iframe>
+            </div>
+        </div>
+
+        <!-- Mobile View -->
+        <div class="device-wrapper">
+            <div class="device-label">Mobile (375px)</div>
+            <div class="iframe-container mobile">
+                <iframe src="index.html" title="Mobile View"></iframe>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

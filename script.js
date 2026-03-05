@@ -8,108 +8,95 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Smooth scroll for navigation links
+// Mobile Menu Toggle
+const menuBtn = document.querySelector('.mobile-menu-btn');
+const mobileNav = document.querySelector('.mobile-nav-tray');
+
+if (menuBtn) {
+    menuBtn.addEventListener('click', () => {
+        mobileNav.classList.toggle('active');
+        // Simple hamburger animation toggle
+        const inner = menuBtn.querySelector('.hamburger');
+        inner.style.background = mobileNav.classList.contains('active') ? 'transparent' : 'white';
+    });
+}
+
+// Close mobile menu on link click
+document.querySelectorAll('.mobile-nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        mobileNav.classList.remove('active');
+        document.querySelector('.hamburger').style.background = 'white';
+    });
+});
+
+// Vehicle Selection Logic
+const vehicleCards = document.querySelectorAll('.vehicle-card');
+vehicleCards.forEach(card => {
+    card.addEventListener('click', () => {
+        vehicleCards.forEach(c => c.classList.remove('active'));
+        card.classList.add('active');
+    });
+});
+
+// Smooth scroll for all navigation links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
+        if (targetId === '#') return;
 
+        const targetElement = document.querySelector(targetId);
         if (targetElement) {
+            const headerOffset = 80;
+            const elementPosition = targetElement.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
             window.scrollTo({
-                top: targetElement.offsetTop - 80,
+                top: offsetPosition,
                 behavior: 'smooth'
             });
         }
     });
 });
 
-// Intersection Observer for scroll animations
+// Intersection Observer for fade-in animations
 const observerOptions = {
-    threshold: 0.1
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
 };
 
-const observer = new IntersectionObserver((entries) => {
+const appearanceObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
+            entry.target.classList.add('appear');
+            appearanceObserver.unobserve(entry.target);
         }
     });
 }, observerOptions);
 
-// Apply animations to sections and cards
-document.querySelectorAll('.service-card, .review-card, .section-title').forEach(el => {
+document.querySelectorAll('section, .glass-card').forEach(el => {
     el.style.opacity = '0';
     el.style.transform = 'translateY(30px)';
-    el.style.transition = 'all 0.6s ease-out';
-    observer.observe(el);
+    el.style.transition = 'all 0.8s cubic-bezier(0.16, 1, 0.3, 1)';
+    appearanceObserver.observe(el);
 });
 
-// Logo hover interaction
-const logo = document.querySelector('.logo');
-logo.addEventListener('mouseenter', () => {
-    logo.querySelector('svg').style.transform = 'rotate(360deg) scale(1.1)';
-    logo.querySelector('svg').style.transition = 'all 0.8s ease';
-});
-logo.addEventListener('mouseleave', () => {
-    logo.querySelector('svg').style.transform = 'rotate(0) scale(1)';
-});
-// Modal Functions
-function openBookingModal(serviceName) {
-    const modal = document.getElementById('booking-modal');
-    document.getElementById('modal-service-name').innerText = serviceName;
-    modal.style.display = 'flex';
-    setTimeout(() => modal.classList.add('active'), 10);
-    document.body.style.overflow = 'hidden';
-}
-
-function openTrackingModal() {
-    const modal = document.getElementById('tracking-modal');
-    modal.style.display = 'flex';
-    setTimeout(() => modal.classList.add('active'), 10);
-    document.body.style.overflow = 'hidden';
-}
-
-function closeModal(modalId) {
-    const modal = document.getElementById(modalId);
-    modal.classList.remove('active');
-    setTimeout(() => {
-        modal.style.display = 'none';
-        document.body.style.overflow = 'auto';
-    }, 300);
-}
-
-// Service Card Event Listeners
-document.getElementById('bike-delivery').addEventListener('click', () => {
-    openBookingModal('Bike Delivery');
-});
-
-document.getElementById('car-delivery').addEventListener('click', () => {
-    openBookingModal('Car & Van Delivery');
-});
-
-document.getElementById('track-delivery').addEventListener('click', () => {
-    openTrackingModal();
-});
-
-// Close modals when clicking outside
-window.addEventListener('click', (e) => {
-    if (e.target.classList.contains('modal-overlay')) {
-        closeModal(e.target.id);
+// Add a class when element intersects to trigger CSS transition
+const style = document.createElement('style');
+style.textContent = `
+    .appear {
+        opacity: 1 !important;
+        transform: translateY(0) !important;
     }
-});
+`;
+document.head.appendChild(style);
 
-// Form Submissions (Mock)
-document.getElementById('booking-form').addEventListener('submit', (e) => {
+// Form Submission (Mock)
+document.getElementById('order-form').addEventListener('submit', (e) => {
     e.preventDefault();
-    alert('Thank you! Your booking request has been received. Our team will contact you shortly.');
-    closeModal('booking-modal');
-});
+    const pickup = document.getElementById('pickup').value;
+    const dropoff = document.getElementById('dropoff').value;
+    const vehicle = document.querySelector('.vehicle-card.active span').innerText;
 
-document.getElementById('tracking-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const orderId = e.target.querySelector('input').value;
-    alert(`Searching for Order ID: ${orderId}... \nOrder status: Processing`);
-    closeModal('tracking-modal');
+    alert(`Success! Your ${vehicle} delivery from ${pickup} to ${dropoff} has been scheduled. \nOrder Status: Processing`);
 });

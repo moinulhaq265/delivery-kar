@@ -4,190 +4,274 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Deliver Kar | Fast & Reliable Delivery in Abbottabad</title>
+    <title>Delivery Kar | Premium Logistics in Abbottabad</title>
     <meta name="description"
-        content="Professional delivery services in Abbottabad using bikes and cars. Your package, our priority.">
+        content="Abbottabad's premium delivery service. Bike, Car, and Van delivery with real-time tracking across the city.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;600&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="index.css">
 </head>
 
 <body>
 
     <header id="header">
-        <div class="container">
-            <nav>
-                <a href="#" class="logo">
-                    <svg class="logo-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div class="container nav-container">
+            <a href="#" class="logo">
+                <div class="logo-box">
+                    <svg class="logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <circle cx="50" cy="50" r="45" stroke="#FF6B00" stroke-width="8" />
-                        <path d="M30 50L45 65L75 35" stroke="#FF6B00" stroke-width="8" stroke-linecap="round"
+                        <path d="M30 50L45 65L75 35" stroke="#FF6B00" stroke-width="10" stroke-linecap="round"
                             stroke-linejoin="round" />
                     </svg>
-                    <span>Deliver <span class="gradient-text">Kar</span></span>
-                </a>
+                </div>
+                <span>Delivery <span class="accent-text">Kar</span></span>
+            </a>
+
+            <nav class="desktop-nav">
                 <ul class="nav-links">
                     <li><a href="#services">Services</a></li>
-                    <li><a href="#reviews">Reviews</a></li>
-                    <li><a href="#about">Abbottabad</a></li>
-                    <li><a href="#contact" class="btn-primary" style="padding: 0.6rem 1.5rem;">Order Now</a></li>
+                    <li><a href="#tracking">Tracking</a></li>
+                    <li><a href="#about">About</a></li>
                 </ul>
+                <a href="#booking" class="btn-primary">Order Now</a>
             </nav>
+
+            <button class="mobile-menu-btn" aria-label="Toggle Menu">
+                <div class="hamburger"></div>
+            </button>
+        </div>
+
+        <!-- Mobile Dropdown -->
+        <div class="mobile-nav-tray">
+            <ul class="mobile-nav-links">
+                <li><a href="#services">Services</a></li>
+                <li><a href="#tracking">Tracking</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#booking" class="btn-primary">Order Now</a></li>
+            </ul>
         </div>
     </header>
 
     <main>
+        <!-- Hero Section -->
         <section class="hero">
-            <div class="container">
+            <div class="container hero-grid">
                 <div class="hero-content">
-                    <h1>Fastest Delivery in <br><span class="gradient-text">Abbottabad City</span></h1>
-                    <p>We deliver everything from small packages to bulk goods across Abbottabad using our specialized
-                        fleet of bikes and cars. Reliable, safe, and professional.</p>
-                    <div class="hero-btns">
-                        <a href="#contact" class="btn-primary">Get Started Now</a>
+                    <span class="badge">#1 Delivery Service in Abbottabad</span>
+                    <h1>Your Package, <br><span class="accent-text">Our Priority.</span></h1>
+                    <p>Fast, secure, and reliable delivery solutions tailored for Abbottabad. From Mandian to Fawara
+                        Chowk, we've got you covered.</p>
+                    <div class="hero-actions">
+                        <a href="#booking" class="btn-primary">Place Order</a>
+                        <a href="#services" class="btn-secondary">Explore Services</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="floating-card glass-card">
+                        <div class="card-icon">🏍️</div>
+                        <div class="card-text">
+                            <strong>Instant Pickup</strong>
+                            <span>Within 15 mins</span>
+                        </div>
+                    </div>
+                    <div class="floating-card glass-card">
+                        <div class="card-icon">📦</div>
+                        <div class="card-text">
+                            <strong>Safe Handling</strong>
+                            <span>100% Protection</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- Services Section -->
         <section id="services" class="services">
             <div class="container">
-                <h2 class="section-title">Our <span class="gradient-text">Services</span></h2>
+                <div class="section-header">
+                    <h2 class="section-title">Premium <span class="accent-text">Services</span></h2>
+                    <p>Tailored delivery options for every need in the city.</p>
+                </div>
                 <div class="services-grid">
-                    <div class="service-card glass-morphism" id="bike-delivery">
-                        <span class="service-icon">🏍️</span>
+                    <div class="service-box glass-card" id="bike-box">
+                        <div class="service-icon-wrapper">🏍️</div>
                         <h3>Bike Delivery</h3>
-                        <p>Perfect for documents, meals, and small packages. The fastest way to navigate Abbottabad's
-                            busy streets.</p>
+                        <p>Fastest way to weave through Abbottabad traffic for small parcels and urgent documents.</p>
                     </div>
-                    <div class="service-card glass-morphism" id="car-delivery">
-                        <span class="service-icon">🚗</span>
+                    <div class="service-box glass-card" id="car-box">
+                        <div class="service-icon-wrapper">🚗</div>
                         <h3>Car & Van Delivery</h3>
-                        <p>Handling large items, bulk orders, and fragile goods with maximum care and security.</p>
+                        <p>Perfect for bulk orders, fragile items, or weather-sensitive packages requiring a closed
+                            vehicle.</p>
                     </div>
-                    <div class="service-card glass-morphism" id="track-delivery">
-                        <span class="service-icon">📍</span>
+                    <div class="service-box glass-card" id="track-box">
+                        <div class="service-icon-wrapper">📍</div>
                         <h3>Real-time Tracking</h3>
-                        <p>Know exactly where your delivery is at any moment with our advanced city-wide tracking.</p>
+                        <p>Stay informed with live GPS updates as your package moves through the city streets.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="reviews" class="reviews">
+        <!-- Live Tracking Section -->
+        <section id="tracking" class="live-tracking">
             <div class="container">
-                <h2 class="section-title">Customer <span class="gradient-text">Reviews</span></h2>
-                <div class="reviews-grid">
-                    <div class="review-card glass-morphism">
-                        <p class="review-text">"Deliver Kar is the most reliable service in Abbottabad. They delivered
-                            my package from Mandian to Supply in record time!"</p>
-                        <div class="review-author">
-                            <div class="author-info">
-                                <h4>Salman Khan</h4>
-                                <span>Local Business Owner</span>
+                <div class="section-header">
+                    <h2 class="section-title">Live <span class="accent-text">Tracking</span></h2>
+                    <p>Watch our movement in real-time across Abbottabad.</p>
+                </div>
+                <div class="map-container glass-card">
+                    <div class="map-overlay">
+                        <div class="map-header">
+                            <div class="tracking-info">
+                                <span class="status-indicator"></span>
+                                <div>
+                                    <strong>Package ID: DK-8829</strong>
+                                    <span>In Transit (Mandian → Fawara Chowk)</span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="review-card glass-morphism">
-                        <p class="review-text">"Amazing experience! The rider was professional and the car delivery for
-                            my furniture was handled very carefully."</p>
-                        <div class="review-author">
-                            <div class="author-info">
-                                <h4>Ayesha Bibi</h4>
-                                <span>Resident, Nawanshehr</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="review-card glass-morphism">
-                        <p class="review-text">"Excellent service. Reached on time even during peak hours near Fawara
-                            Chowk. Highly recommended!"</p>
-                        <div class="review-author">
-                            <div class="author-info">
-                                <h4>Bilal Ahmed</h4>
-                                <span>Student, COMSATS</span>
-                            </div>
-                        </div>
+                    <div class="map-canvas" id="abbottabad-map">
+                        <!-- Stylized SVG Map of Abbottabad -->
+                        <svg viewBox="0 0 800 500" class="city-map">
+                            <!-- Background Grid -->
+                            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.05)"
+                                    stroke-width="1" />
+                            </pattern>
+                            <rect width="100%" height="100%" fill="url(#grid)" />
+
+                            <!-- Road Paths (Stylized) -->
+                            <path class="road-path" d="M 100 100 L 700 400" stroke="rgba(255,107,0,0.2)"
+                                stroke-width="6" fill="none" />
+                            <path id="delivery-route" d="M 150 150 C 250 180, 450 120, 650 350" stroke="#FF6B00"
+                                stroke-width="4" fill="none" stroke-dasharray="10,10" />
+
+                            <!-- Landmarks -->
+                            <g class="landmark" transform="translate(150, 150)">
+                                <circle r="8" fill="#FF6B00" />
+                                <text y="-20" text-anchor="middle" fill="white">Mandian</text>
+                            </g>
+                            <g class="landmark" transform="translate(650, 350)">
+                                <circle r="8" fill="#FF6B00" />
+                                <text y="30" text-anchor="middle" fill="white">Fawara Chowk</text>
+                            </g>
+
+                            <!-- Moving Delivery Icon -->
+                            <circle class="moving-pkg" r="10" fill="white">
+                                <animateMotion dur="10s" repeatCount="indefinite"
+                                    path="M 150 150 C 250 180, 450 120, 650 350" />
+                            </circle>
+                        </svg>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="about" class="container" style="padding: 8rem 0; text-align: center;">
-            <h2 class="section-title">Serving the heart of <span class="gradient-text">Abbottabad</span></h2>
-            <p style="font-size: 1.2rem; color: var(--text-muted); max-width: 800px; margin: 0 auto;">
-                From Mandian to Nawanshehr, and Supply to Jinnahabad, we cover every corner of Abbottabad. Our local
-                knowledge ensures your items reach their destination through the fastest routes possible.
-            </p>
+        <!-- Booking Form Section -->
+        <section id="booking" class="booking-section">
+            <div class="container">
+                <div class="booking-wrapper glass-card">
+                    <div class="booking-header">
+                        <h2 class="section-title">Book a <span class="accent-text">Delivery</span></h2>
+                        <p>Fill in the details below to get started.</p>
+                    </div>
+
+                    <form id="order-form" class="order-form">
+                        <div class="vehicle-selection">
+                            <label>Select Vehicle Type</label>
+                            <div class="vehicle-options">
+                                <div class="vehicle-card" data-vehicle="bicycle">
+                                    <div class="v-icon">🚲</div>
+                                    <span>Bicycle</span>
+                                </div>
+                                <div class="vehicle-card active" data-vehicle="car">
+                                    <div class="v-icon">🚗</div>
+                                    <span>Car</span>
+                                </div>
+                                <div class="vehicle-card" data-vehicle="van">
+                                    <div class="v-icon">🚐</div>
+                                    <span>Van</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="pickup">Pick-up Location</label>
+                                <input type="text" id="pickup" placeholder="Type Your Pick-up Location (e.g., 'Supply')"
+                                    required>
+                            </div>
+                            <div class="form-group">
+                                <label for="dropoff">Drop-off Location</label>
+                                <input type="text" id="dropoff"
+                                    placeholder="Type Your Drop-off Location (e.g., 'Jinnahabad')" required>
+                            </div>
+                            <div class="form-group full-width">
+                                <label for="description">Package Description</label>
+                                <input type="text" id="description"
+                                    placeholder="Package Description (e.g., 'Heavy Furniture')" required>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary btn-large">Place Order</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials -->
+        <section class="testimonials">
+            <div class="container">
+                <div class="section-header">
+                    <h2 class="section-title">What Our <span class="accent-text">Clients Say</span></h2>
+                </div>
+                <div class="testimonials-grid">
+                    <div class="testimonial-card glass-card">
+                        <p>"Reliable and professional. They handled my furniture delivery with absolute care. Best in
+                            the city!"</p>
+                        <div class="user-meta">
+                            <div class="user-avatar">SA</div>
+                            <div>
+                                <strong>Saad Ali</strong>
+                                <span>Business Owner, Jinnahabad</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="testimonial-card glass-card">
+                        <p>"The tracking feature is a game changer. I knew exactly when my documents would reach
+                            Mandian."</p>
+                        <div class="user-meta">
+                            <div class="user-avatar">ZA</div>
+                            <div>
+                                <strong>Zainab Ahmed</strong>
+                                <span>Freelancer, Supply</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-info">
-                    <div class="logo footer-logo">
-                        <span>Deliver <span class="gradient-text">Kar</span></span>
-                    </div>
-                    <p class="footer-desc">Professional and reliable logistics solutions for the residents and
-                        businesses of Abbottabad City.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#reviews">Reviews</a></li>
-                        <li><a href="#about">About City</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Coverage</h4>
-                    <ul>
-                        <li><a href="#">Mandian</a></li>
-                        <li><a href="#">Supply</a></li>
-                        <li><a href="#">Mansehra Road</a></li>
-                        <li><a href="#">City Center</a></li>
-                    </ul>
-                </div>
+        <div class="container footer-grid">
+            <div class="footer-brand">
+                <a href="#" class="logo">
+                    <span>Delivery <span class="accent-text">Kar</span></span>
+                </a>
+                <p>Bringing premium logistics to the heart of Abbottabad.</p>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2026 Deliver Kar. All rights reserved. | Based in Abbottabad, Pakistan.</p>
+                <p>&copy; 2026 Delivery Kar Pakistan. All rights reserved.</p>
             </div>
         </div>
     </footer>
-
-    <!-- Modals -->
-    <div id="booking-modal" class="modal-overlay">
-        <div class="modal-container glass-morphism">
-            <span class="modal-close" onclick="closeModal('booking-modal')">&times;</span>
-            <h2 class="modal-title gradient-text" id="modal-service-name">Service Name</h2>
-            <form id="booking-form" class="booking-form">
-                <div class="form-group">
-                    <label>Pick-up Location</label>
-                    <input type="text" placeholder="Enter pick-up address" required>
-                </div>
-                <div class="form-group">
-                    <label>Drop-off Location</label>
-                    <input type="text" placeholder="Enter drop-off address" required>
-                </div>
-                <div class="form-group">
-                    <label>Phone Number</label>
-                    <input type="tel" placeholder="Enter your phone number" required>
-                </div>
-                <button type="submit" class="btn-primary btn-submit">Confirm Booking</button>
-            </form>
-        </div>
-    </div>
-
-    <div id="tracking-modal" class="modal-overlay">
-        <div class="modal-container glass-morphism">
-            <span class="modal-close" onclick="closeModal('tracking-modal')">&times;</span>
-            <h2 class="modal-title gradient-text">Track Your Order</h2>
-            <form id="tracking-form" class="booking-form">
-                <div class="form-group">
-                    <label>Order ID</label>
-                    <input type="text" placeholder="Enter Order ID" required>
-                </div>
-                <button type="submit" class="btn-primary btn-submit">Track Now</button>
-            </form>
-        </div>
-    </div>
 
     <script src="script.js"></script>
 </body>
