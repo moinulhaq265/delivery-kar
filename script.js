@@ -91,6 +91,112 @@ style.textContent = `
 `;
 document.head.appendChild(style);
 
+// Location Functionality
+const getLocationBtn = document.getElementById('get-location');
+const shareAddressBtn = document.getElementById('share-address');
+const pickupInput = document.getElementById('pickup');
+
+if (getLocationBtn) {
+    getLocationBtn.addEventListener('click', () => {
+        if ("geolocation" in navigator) {
+            getLocationBtn.innerHTML = '⌛'; // Loading state
+            navigator.geolocation.getCurrentPosition((position) => {
+                // Live Tracking Simulation
+                function initTrackingSimulation() {
+                    const distanceVal = document.getElementById('distance-val');
+                    const timeVal = document.getElementById('time-val');
+                    const statusText = document.getElementById('track-status');
+                    const movingPkg = document.querySelector('.moving-pkg');
+
+                    if (!distanceVal || !timeVal || !movingPkg) return;
+
+                    let totalDuration = 10000; // 10s based on SVG animation
+                    let startTime = Date.now();
+                    let totalDistance = 4.2;
+                    let totalTime = 12;
+
+                    function updateMetrics() {
+                        let elapsed = (Date.now() - startTime) % totalDuration;
+                        let progress = elapsed / totalDuration;
+
+                        // Calculate remaining values
+                        let remainingDistance = totalDistance * (1 - progress);
+                        let remainingTime = Math.ceil(totalTime * (1 - progress));
+
+                        distanceVal.innerText = remainingDistance.toFixed(1);
+                        timeVal.innerText = remainingTime;
+
+                        // Update status based on progress
+                        if (progress < 0.1) {
+                            statusText.innerText = "Picked up (Mandian)";
+                        } else if (progress > 0.9) {
+                            statusText.innerText = "Arriving at Destination (Fawara Chowk)";
+                        } else if (progress > 0.5) {
+                            statusText.innerText = "In Transit (Main Road)";
+                        } else {
+                            statusText.innerText = "In Transit (Mandian → Fawara Chowk)";
+                        }
+
+                        requestAnimationFrame(updateMetrics);
+                    }
+
+                    updateMetrics();
+                }
+
+                // Initialize simulation after content is loaded
+                document.addEventListener('DOMContentLoaded', () => {
+                    initTrackingSimulation();
+                });
+                const lat = position.coords.latitude;
+                const lng = position.coords.longitude;
+                // In a real app, we'd reverse geocode here. 
+                // For now, we'll populate with coordinates plus a placeholder
+                pickupInput.value = `My Location (${lat.toFixed(4)}, ${lng.toFixed(4)}) - (Reverse Geocoding Simulated)`;
+                getLocationBtn.innerHTML = '📍';
+                pickupInput.classList.add('glow-capture');
+                setTimeout(() => pickupInput.classList.remove('glow-capture'), 2000);
+            }, (error) => {
+                alert("Error getting location: " + error.message);
+                getLocationBtn.innerHTML = '📍';
+            });
+        } else {
+            alert("Geolocation is not supported by your browser.");
+        }
+    });
+}
+
+if (shareAddressBtn) {
+    shareAddressBtn.addEventListener('click', () => {
+        const address = pickupInput.value;
+        if (!address) {
+            alert("Please type an address first to share.");
+            return;
+        }
+
+        // Simulate sharing
+        if (navigator.share) {
+            navigator.share({
+                title: 'Pickup Location',
+                text: `Pickup Address: ${address}`,
+                url: window.location.href
+            }).then(() => {
+                console.log('Successful share');
+            }).catch((error) => {
+                console.log('Error sharing', error);
+                copyToClipboard(address);
+            });
+        } else {
+            copyToClipboard(address);
+        }
+    });
+}
+
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        alert("Address copied to clipboard! You can now share it.");
+    });
+}
+
 // Form Submission (Mock)
 document.getElementById('order-form').addEventListener('submit', (e) => {
     e.preventDefault();
@@ -100,3 +206,4 @@ document.getElementById('order-form').addEventListener('submit', (e) => {
 
     alert(`Success! Your ${vehicle} delivery from ${pickup} to ${dropoff} has been scheduled. \nOrder Status: Processing`);
 });
+

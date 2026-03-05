@@ -130,9 +130,19 @@
                             <div class="tracking-info">
                                 <span class="status-indicator"></span>
                                 <div>
-                                    <strong>Package ID: DK-8829</strong>
-                                    <span>In Transit (Mandian → Fawara Chowk)</span>
+                                    <strong>ID: <span id="track-id">DK-8829</span></strong>
+                                    <span id="track-status">In Transit (Mandian → Fawara Chowk)</span>
                                 </div>
+                            </div>
+                        </div>
+                        <div class="tracking-dashboard">
+                            <div class="metric-card">
+                                <span class="metric-label">Distance Remaining</span>
+                                <span class="metric-value"><span id="distance-val">4.2</span> km</span>
+                            </div>
+                            <div class="metric-card">
+                                <span class="metric-label">Est. Time</span>
+                                <span class="metric-value"><span id="time-val">12</span> mins</span>
                             </div>
                         </div>
                     </div>
@@ -186,9 +196,9 @@
                         <div class="vehicle-selection">
                             <label>Select Vehicle Type</label>
                             <div class="vehicle-options">
-                                <div class="vehicle-card" data-vehicle="bicycle">
-                                    <div class="v-icon">🚲</div>
-                                    <span>Bicycle</span>
+                                <div class="vehicle-card" data-vehicle="bike">
+                                    <div class="v-icon">🏍️</div>
+                                    <span>Bike</span>
                                 </div>
                                 <div class="vehicle-card active" data-vehicle="car">
                                     <div class="v-icon">🚗</div>
@@ -203,14 +213,23 @@
 
                         <div class="form-grid">
                             <div class="form-group">
-                                <label for="pickup">Pick-up Location</label>
-                                <input type="text" id="pickup" placeholder="Type Your Pick-up Location (e.g., 'Supply')"
-                                    required>
+                                <label for="pickup">Pick-up Address</label>
+                                <div class="input-with-action">
+                                    <input type="text" id="pickup"
+                                        placeholder="Exactly where we should pick up (e.g., 'House #12, St 3, Supply')"
+                                        required>
+                                    <div class="input-actions">
+                                        <button type="button" id="get-location" class="input-action-btn"
+                                            title="Use Current Location">📍</button>
+                                        <button type="button" id="share-address" class="input-action-btn"
+                                            title="Share Address">🔗</button>
+                                    </div>
+                                </div>
                             </div>
                             <div class="form-group">
-                                <label for="dropoff">Drop-off Location</label>
+                                <label for="dropoff">Drop-off Address</label>
                                 <input type="text" id="dropoff"
-                                    placeholder="Type Your Drop-off Location (e.g., 'Jinnahabad')" required>
+                                    placeholder="Type Your Drop-off Address (e.g., 'Jinnahabad')" required>
                             </div>
                             <div class="form-group full-width">
                                 <label for="description">Package Description</label>
