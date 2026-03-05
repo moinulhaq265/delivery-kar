@@ -53,7 +53,7 @@ h3,
     color: var(--primary);
     font-size: 0.9rem;
     letter-spacing: 2px;
-    margin: 2px 0;
+    margin-top: 5px;
     text-shadow: 0 0 10px var(--primary-glow);
 }
 
