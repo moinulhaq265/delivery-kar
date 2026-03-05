@@ -314,8 +314,17 @@
                 <div id="modal-body" class="modal-body">
                     <!-- Dynamic Content -->
                 </div>
+                <div id="tracker-input-flow" class="tracker-input-container" style="display: none;">
+                    <div class="input-glow-wrapper">
+                        <input type="text" id="order-id-input" placeholder="Enter Order ID (e.g., DK-8829)"
+                            maxlength="10">
+                        <div class="input-line"></div>
+                    </div>
+                    <p class="input-hint">Enter your 10-digit ID to begin live tracking.</p>
+                </div>
                 <div class="modal-footer">
-                    <a href="#booking" class="btn-primary" id="modal-book-btn">Book This Service</a>
+                    <button class="btn-primary" id="modal-action-btn">Book This Service</button>
+                    <button class="btn-primary" id="modal-track-btn" style="display: none;">Track Now</button>
                 </div>
             </div>
         </div>
