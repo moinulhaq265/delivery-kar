@@ -1,7 +1,7 @@
 :root {
-    --primary: #FFCC00;
-    --primary-light: #FFD633;
-    --primary-glow: rgba(255, 204, 0, 0.3);
+    --primary: #FF6B00;
+    --primary-light: #FF8533;
+    --primary-glow: rgba(255, 107, 0, 0.3);
     --bg-darker: #050505;
     --bg-dark: #0A0A0B;
     --bg-card: #141417;
@@ -10,7 +10,7 @@
     --glass: rgba(255, 255, 255, 0.03);
     --glass-border: rgba(255, 255, 255, 0.08);
     --transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    --modal-glow: rgba(255, 204, 0, 0.6);
+    --modal-glow: rgba(255, 107, 0, 0.6);
 }
 
 /* Base Styles */
@@ -71,6 +71,12 @@ h3,
 }
 
 /* Typography */
+h1,
+h2,
+h3 {
+    color: white;
+}
+
 h1 {
     font-size: clamp(3rem, 8vw, 5.5rem);
     font-weight: 800;
