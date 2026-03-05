@@ -15,17 +15,16 @@ const mobileNav = document.querySelector('.mobile-nav-tray');
 if (menuBtn) {
     menuBtn.addEventListener('click', () => {
         mobileNav.classList.toggle('active');
-        // Simple hamburger animation toggle
         const inner = menuBtn.querySelector('.hamburger');
-        inner.style.background = mobileNav.classList.contains('active') ? 'transparent' : 'white';
+        if (inner) inner.style.background = mobileNav.classList.contains('active') ? 'transparent' : 'white';
     });
 }
 
-// Close mobile menu on link click
 document.querySelectorAll('.mobile-nav-links a').forEach(link => {
     link.addEventListener('click', () => {
         mobileNav.classList.remove('active');
-        document.querySelector('.hamburger').style.background = 'white';
+        const hamburger = document.querySelector('.hamburger');
+        if (hamburger) hamburger.style.background = 'white';
     });
 });
 
@@ -38,33 +37,23 @@ vehicleCards.forEach(card => {
     });
 });
 
-// Smooth scroll for all navigation links
+// Smooth scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
         const targetId = this.getAttribute('href');
         if (targetId === '#') return;
-
         const targetElement = document.querySelector(targetId);
         if (targetElement) {
             const headerOffset = 80;
             const elementPosition = targetElement.getBoundingClientRect().top;
             const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-
-            window.scrollTo({
-                top: offsetPosition,
-                behavior: 'smooth'
-            });
+            window.scrollTo({ top: offsetPosition, behavior: 'smooth' });
         }
     });
 });
 
-// Intersection Observer for fade-in animations
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
+// Intersection Observer
 const appearanceObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -72,7 +61,7 @@ const appearanceObserver = new IntersectionObserver((entries) => {
             appearanceObserver.unobserve(entry.target);
         }
     });
-}, observerOptions);
+}, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
 
 document.querySelectorAll('section, .glass-card').forEach(el => {
     el.style.opacity = '0';
@@ -81,17 +70,11 @@ document.querySelectorAll('section, .glass-card').forEach(el => {
     appearanceObserver.observe(el);
 });
 
-// Add a class when element intersects to trigger CSS transition
 const style = document.createElement('style');
-style.textContent = `
-    .appear {
-        opacity: 1 !important;
-        transform: translateY(0) !important;
-    }
-`;
+style.textContent = ` .appear { opacity: 1 !important; transform: translateY(0) !important; } `;
 document.head.appendChild(style);
 
-// Location Functionality
+// Location & Share Logic
 const getLocationBtn = document.getElementById('get-location');
 const shareAddressBtn = document.getElementById('share-address');
 const pickupInput = document.getElementById('pickup');
@@ -99,104 +82,45 @@ const pickupInput = document.getElementById('pickup');
 if (getLocationBtn) {
     getLocationBtn.addEventListener('click', () => {
         if ("geolocation" in navigator) {
-            getLocationBtn.innerHTML = '⌛'; // Loading state
+            getLocationBtn.innerHTML = '⌛';
             navigator.geolocation.getCurrentPosition((position) => {
-                const lat = position.coords.latitude;
-                const lng = position.coords.longitude;
-                pickupInput.value = `My Location (${lat.toFixed(4)}, ${lng.toFixed(4)}) - (Reverse Geocoding Simulated)`;
+                pickupInput.value = `My Location (${position.coords.latitude.toFixed(4)}, ${position.coords.longitude.toFixed(4)})`;
                 getLocationBtn.innerHTML = '📍';
                 pickupInput.classList.add('glow-capture');
                 setTimeout(() => pickupInput.classList.remove('glow-capture'), 2000);
             }, (error) => {
-                alert("Error getting location: " + error.message);
+                alert("Error: " + error.message);
                 getLocationBtn.innerHTML = '📍';
             });
-        } else {
-            alert("Geolocation is not supported by your browser.");
         }
     });
 }
-
 if (shareAddressBtn) {
     shareAddressBtn.addEventListener('click', () => {
-        const address = pickupInput.value;
-        if (!address) {
-            alert("Please type an address first to share.");
-            return;
-        }
-
-        if (navigator.share) {
-            navigator.share({
-                title: 'Pickup Location',
-                text: `Pickup Address: ${address}`,
-                url: window.location.href
-            }).then(() => {
-                console.log('Successful share');
-            }).catch((error) => {
-                console.log('Error sharing', error);
-                copyToClipboard(address);
-            });
-        } else {
-            copyToClipboard(address);
+        if (navigator.share && pickupInput.value) {
+            navigator.share({ title: 'Pickup', text: pickupInput.value, url: window.location.href });
+        } else if (pickupInput.value) {
+            navigator.clipboard.writeText(pickupInput.value).then(() => alert("Copied!"));
         }
     });
 }
 
-function copyToClipboard(text) {
-    navigator.clipboard.writeText(text).then(() => {
-        alert("Address copied to clipboard! You can now share it.");
-    });
-}
-
-// Service Modal Logic
+// Modal Logic
 const modal = document.getElementById('service-modal');
 const modalOverlay = modal ? modal.querySelector('.modal-overlay') : null;
 const closeBtn = modal ? modal.querySelector('.close-modal') : null;
 const modalTitle = document.getElementById('modal-title');
 const modalIcon = document.getElementById('modal-icon');
 const modalBody = document.getElementById('modal-body');
-const modalBookBtn = document.getElementById('modal-book-btn');
+const modalActionBtn = document.getElementById('modal-action-btn');
+const modalTrackBtn = document.getElementById('modal-track-btn');
+const trackerInputFlow = document.getElementById('tracker-input-flow');
+const orderIdInput = document.getElementById('order-id-input');
 
 const serviceDetails = {
-    bike: {
-        title: 'Bike <span class="accent-text">Delivery</span>',
-        icon: '🏍️',
-        body: `
-            <p>The fastest way to navigate Abbottabad's busy streets. Perfect for small parcels, documents, and urgent deliveries.</p>
-            <ul class="modal-benefits">
-                <li>Instant pickup within 15 minutes</li>
-                <li>Door-to-door delivery speed</li>
-                <li>Traffic-evading routes</li>
-                <li>Live GPS tracking</li>
-            </ul>
-        `
-    },
-    car: {
-        title: 'Car & Van <span class="accent-text">Delivery</span>',
-        icon: '🚗',
-        body: `
-            <p>Secure and weather-proof delivery for larger items, catering orders, or multiple packages.</p>
-            <ul class="modal-benefits">
-                <li>Safe handling for fragile items</li>
-                <li>Large capacity (up to 500kg)</li>
-                <li>Weather-protected transit</li>
-                <li>Multi-stop delivery support</li>
-            </ul>
-        `
-    },
-    tracking: {
-        title: 'Real-time <span class="accent-text">Tracking</span>',
-        icon: '📍',
-        body: `
-            <p>Our futuristic tracking system gives you full visibility of your package at every stage of the journey.</p>
-            <ul class="modal-benefits">
-                <li>Pin-point GPS accuracy</li>
-                <li>Live ETA updates</li>
-                <li>Rider contact integration</li>
-                <li>Digital delivery proof</li>
-            </ul>
-        `
-    }
+    bike: { title: 'Bike <span class="accent-text">Delivery</span>', icon: '🏍️', body: '<p>The fastest way to navigate Abbottabad\'s busy streets. Perfect for small parcels and urgent documents.</p><ul class="modal-benefits"><li>Pickup in 15 mins</li><li>Traffic-evading routes</li><li>Live status updates</li></ul>' },
+    car: { title: 'Car & Van <span class="accent-text">Delivery</span>', icon: '🚗', body: '<p>Secure and weather-proof delivery for larger items, catering orders, or multiple packages.</p><ul class="modal-benefits"><li>Safe handling for fragile items</li><li>Bulk order capacity</li><li>Weather protected</li></ul>' },
+    tracking: { title: 'Real-time <span class="accent-text">Tracking</span>', icon: '📍', body: '<p>Our futuristic tracking system gives you full visibility of your package with pin-point accuracy.</p><ul class="modal-benefits"><li>Live GPS location</li><li>Accurate ETA</li><li>Direct driver contact</li></ul>' }
 };
 
 document.querySelectorAll('.clickable-service').forEach(card => {
@@ -208,6 +132,7 @@ document.querySelectorAll('.clickable-service').forEach(card => {
             modalIcon.innerHTML = details.icon;
             modalBody.innerHTML = details.body;
             modalBody.style.display = 'block';
+            modalBody.style.opacity = '1';
             trackerInputFlow.style.display = 'none';
             modalTrackBtn.style.display = 'none';
             modalActionBtn.style.display = 'inline-block';
@@ -237,78 +162,63 @@ document.querySelectorAll('.clickable-service').forEach(card => {
                 };
             }
             modal.classList.add('active');
-            modalBody.style.opacity = '1';
             document.body.style.overflow = 'hidden';
         }
     });
 });
 
-const closeModal = () => {
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-};
-
+const closeModal = () => { if (modal) { modal.classList.remove('active'); document.body.style.overflow = ''; } };
 if (closeBtn) closeBtn.addEventListener('click', closeModal);
 if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
-if (modalBookBtn) modalBookBtn.addEventListener('click', closeModal);
+
+if (modalTrackBtn) {
+    modalTrackBtn.onclick = () => {
+        const id = orderIdInput.value.trim();
+        if (id.length < 4) {
+            alert("Please enter a valid Order ID to proceed.");
+            return;
+        }
+        closeModal();
+        // Scroll to tracking section and trigger active state
+        const trackingSection = document.getElementById('tracking');
+        if (trackingSection) {
+            trackingSection.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                const map = document.querySelector('.map-container');
+                if (map) {
+                    map.classList.add('glow-capture');
+                    setTimeout(() => map.classList.remove('glow-capture'), 3000);
+                }
+            }, 1000);
+        }
+    };
+}
 
 // Live Tracking Simulation
 function initTrackingSimulation() {
-    const distanceVal = document.getElementById('distance-val');
-    const timeVal = document.getElementById('time-val');
-    const statusText = document.getElementById('track-status');
-    const movingPkg = document.querySelector('.moving-pkg');
-
-    if (!distanceVal || !timeVal || !movingPkg) return;
-
-    let totalDuration = 10000;
-    let startTime = Date.now();
-    let totalDistance = 4.2;
-    let totalTime = 12;
-
-    function updateMetrics() {
-        let elapsed = (Date.now() - startTime) % totalDuration;
-        let progress = elapsed / totalDuration;
-
-        let remainingDistance = totalDistance * (1 - progress);
-        let remainingTime = Math.ceil(totalTime * (1 - progress));
-
-        distanceVal.innerText = remainingDistance.toFixed(1);
-        timeVal.innerText = remainingTime;
-
-        if (progress < 0.1) {
-            statusText.innerText = "Picked up (Mandian)";
-        } else if (progress > 0.9) {
-            statusText.innerText = "Arriving at Destination (Fawara Chowk)";
-        } else if (progress > 0.5) {
-            statusText.innerText = "In Transit (Main Road)";
-        } else {
-            statusText.innerText = "In Transit (Mandian → Fawara Chowk)";
-        }
-
-        requestAnimationFrame(updateMetrics);
-    }
-
-    updateMetrics();
+    const elements = {
+        distance: document.getElementById('distance-val'),
+        time: document.getElementById('time-val'),
+        status: document.getElementById('track-status')
+    };
+    if (!elements.distance) return;
+    setInterval(() => {
+        let progress = (Date.now() % 10000) / 10000;
+        elements.distance.innerText = (4.2 * (1 - progress)).toFixed(1);
+        elements.time.innerText = Math.ceil(12 * (1 - progress));
+        if (progress < 0.1) elements.status.innerText = "Picked up (Mandian)";
+        else if (progress > 0.9) elements.status.innerText = "Arriving Soon (Fawara Chowk)";
+        else elements.status.innerText = "In Transit (Main Road)";
+    }, 100);
 }
 
-// Form Submission (Mock)
+// Form Submission
 const orderForm = document.getElementById('order-form');
 if (orderForm) {
     orderForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        const pickup = document.getElementById('pickup').value;
-        const dropoff = document.getElementById('dropoff').value;
-        const activeVehicle = document.querySelector('.vehicle-card.active span');
-        const vehicle = activeVehicle ? activeVehicle.innerText : 'selected';
-
-        alert(`Success! Your ${vehicle} delivery from ${pickup} to ${dropoff} has been scheduled. \nOrder Status: Processing`);
+        const vehicle = document.querySelector('.vehicle-card.active span').innerText;
+        alert(`Success! Your ${vehicle} delivery has been scheduled.`);
     });
 }
-
-// Initialize simulation after content is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    initTrackingSimulation();
-});
+document.addEventListener('DOMContentLoaded', initTrackingSimulation);
