@@ -51,18 +51,18 @@
             <div class="container">
                 <h2 class="section-title">Our <span class="gradient-text">Services</span></h2>
                 <div class="services-grid">
-                    <div class="service-card glass-morphism">
+                    <div class="service-card glass-morphism" id="bike-delivery">
                         <span class="service-icon">🏍️</span>
                         <h3>Bike Delivery</h3>
                         <p>Perfect for documents, meals, and small packages. The fastest way to navigate Abbottabad's
                             busy streets.</p>
                     </div>
-                    <div class="service-card glass-morphism">
+                    <div class="service-card glass-morphism" id="car-delivery">
                         <span class="service-icon">🚗</span>
                         <h3>Car & Van Delivery</h3>
                         <p>Handling large items, bulk orders, and fragile goods with maximum care and security.</p>
                     </div>
-                    <div class="service-card glass-morphism">
+                    <div class="service-card glass-morphism" id="track-delivery">
                         <span class="service-icon">📍</span>
                         <h3>Real-time Tracking</h3>
                         <p>Know exactly where your delivery is at any moment with our advanced city-wide tracking.</p>
@@ -151,6 +151,43 @@
             </div>
         </div>
     </footer>
+
+    <!-- Modals -->
+    <div id="booking-modal" class="modal-overlay">
+        <div class="modal-container glass-morphism">
+            <span class="modal-close" onclick="closeModal('booking-modal')">&times;</span>
+            <h2 class="modal-title gradient-text" id="modal-service-name">Service Name</h2>
+            <form id="booking-form" class="booking-form">
+                <div class="form-group">
+                    <label>Pick-up Location</label>
+                    <input type="text" placeholder="Enter pick-up address" required>
+                </div>
+                <div class="form-group">
+                    <label>Drop-off Location</label>
+                    <input type="text" placeholder="Enter drop-off address" required>
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" placeholder="Enter your phone number" required>
+                </div>
+                <button type="submit" class="btn-primary btn-submit">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="tracking-modal" class="modal-overlay">
+        <div class="modal-container glass-morphism">
+            <span class="modal-close" onclick="closeModal('tracking-modal')">&times;</span>
+            <h2 class="modal-title gradient-text">Track Your Order</h2>
+            <form id="tracking-form" class="booking-form">
+                <div class="form-group">
+                    <label>Order ID</label>
+                    <input type="text" placeholder="Enter Order ID" required>
+                </div>
+                <button type="submit" class="btn-primary btn-submit">Track Now</button>
+            </form>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
