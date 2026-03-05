@@ -101,56 +101,8 @@ if (getLocationBtn) {
         if ("geolocation" in navigator) {
             getLocationBtn.innerHTML = '⌛'; // Loading state
             navigator.geolocation.getCurrentPosition((position) => {
-                // Live Tracking Simulation
-                function initTrackingSimulation() {
-                    const distanceVal = document.getElementById('distance-val');
-                    const timeVal = document.getElementById('time-val');
-                    const statusText = document.getElementById('track-status');
-                    const movingPkg = document.querySelector('.moving-pkg');
-
-                    if (!distanceVal || !timeVal || !movingPkg) return;
-
-                    let totalDuration = 10000; // 10s based on SVG animation
-                    let startTime = Date.now();
-                    let totalDistance = 4.2;
-                    let totalTime = 12;
-
-                    function updateMetrics() {
-                        let elapsed = (Date.now() - startTime) % totalDuration;
-                        let progress = elapsed / totalDuration;
-
-                        // Calculate remaining values
-                        let remainingDistance = totalDistance * (1 - progress);
-                        let remainingTime = Math.ceil(totalTime * (1 - progress));
-
-                        distanceVal.innerText = remainingDistance.toFixed(1);
-                        timeVal.innerText = remainingTime;
-
-                        // Update status based on progress
-                        if (progress < 0.1) {
-                            statusText.innerText = "Picked up (Mandian)";
-                        } else if (progress > 0.9) {
-                            statusText.innerText = "Arriving at Destination (Fawara Chowk)";
-                        } else if (progress > 0.5) {
-                            statusText.innerText = "In Transit (Main Road)";
-                        } else {
-                            statusText.innerText = "In Transit (Mandian → Fawara Chowk)";
-                        }
-
-                        requestAnimationFrame(updateMetrics);
-                    }
-
-                    updateMetrics();
-                }
-
-                // Initialize simulation after content is loaded
-                document.addEventListener('DOMContentLoaded', () => {
-                    initTrackingSimulation();
-                });
                 const lat = position.coords.latitude;
                 const lng = position.coords.longitude;
-                // In a real app, we'd reverse geocode here. 
-                // For now, we'll populate with coordinates plus a placeholder
                 pickupInput.value = `My Location (${lat.toFixed(4)}, ${lng.toFixed(4)}) - (Reverse Geocoding Simulated)`;
                 getLocationBtn.innerHTML = '📍';
                 pickupInput.classList.add('glow-capture');
@@ -173,7 +125,6 @@ if (shareAddressBtn) {
             return;
         }
 
-        // Simulate sharing
         if (navigator.share) {
             navigator.share({
                 title: 'Pickup Location',
@@ -197,13 +148,139 @@ function copyToClipboard(text) {
     });
 }
 
-// Form Submission (Mock)
-document.getElementById('order-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const pickup = document.getElementById('pickup').value;
-    const dropoff = document.getElementById('dropoff').value;
-    const vehicle = document.querySelector('.vehicle-card.active span').innerText;
+// Service Modal Logic
+const modal = document.getElementById('service-modal');
+const modalOverlay = modal ? modal.querySelector('.modal-overlay') : null;
+const closeBtn = modal ? modal.querySelector('.close-modal') : null;
+const modalTitle = document.getElementById('modal-title');
+const modalIcon = document.getElementById('modal-icon');
+const modalBody = document.getElementById('modal-body');
+const modalBookBtn = document.getElementById('modal-book-btn');
 
-    alert(`Success! Your ${vehicle} delivery from ${pickup} to ${dropoff} has been scheduled. \nOrder Status: Processing`);
+const serviceDetails = {
+    bike: {
+        title: 'Bike <span class="accent-text">Delivery</span>',
+        icon: '🏍️',
+        body: `
+            <p>The fastest way to navigate Abbottabad's busy streets. Perfect for small parcels, documents, and urgent deliveries.</p>
+            <ul class="modal-benefits">
+                <li>Instant pickup within 15 minutes</li>
+                <li>Door-to-door delivery speed</li>
+                <li>Traffic-evading routes</li>
+                <li>Live GPS tracking</li>
+            </ul>
+        `
+    },
+    car: {
+        title: 'Car & Van <span class="accent-text">Delivery</span>',
+        icon: '🚗',
+        body: `
+            <p>Secure and weather-proof delivery for larger items, catering orders, or multiple packages.</p>
+            <ul class="modal-benefits">
+                <li>Safe handling for fragile items</li>
+                <li>Large capacity (up to 500kg)</li>
+                <li>Weather-protected transit</li>
+                <li>Multi-stop delivery support</li>
+            </ul>
+        `
+    },
+    tracking: {
+        title: 'Real-time <span class="accent-text">Tracking</span>',
+        icon: '📍',
+        body: `
+            <p>Our futuristic tracking system gives you full visibility of your package at every stage of the journey.</p>
+            <ul class="modal-benefits">
+                <li>Pin-point GPS accuracy</li>
+                <li>Live ETA updates</li>
+                <li>Rider contact integration</li>
+                <li>Digital delivery proof</li>
+            </ul>
+        `
+    }
+};
+
+document.querySelectorAll('.clickable-service').forEach(card => {
+    card.addEventListener('click', () => {
+        const serviceKey = card.getAttribute('data-service');
+        const details = serviceDetails[serviceKey];
+
+        if (details && modal) {
+            modalTitle.innerHTML = details.title;
+            modalIcon.innerHTML = details.icon;
+            modalBody.innerHTML = details.body;
+
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+    });
 });
 
+const closeModal = () => {
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+};
+
+if (closeBtn) closeBtn.addEventListener('click', closeModal);
+if (modalOverlay) modalOverlay.addEventListener('click', closeModal);
+if (modalBookBtn) modalBookBtn.addEventListener('click', closeModal);
+
+// Live Tracking Simulation
+function initTrackingSimulation() {
+    const distanceVal = document.getElementById('distance-val');
+    const timeVal = document.getElementById('time-val');
+    const statusText = document.getElementById('track-status');
+    const movingPkg = document.querySelector('.moving-pkg');
+
+    if (!distanceVal || !timeVal || !movingPkg) return;
+
+    let totalDuration = 10000;
+    let startTime = Date.now();
+    let totalDistance = 4.2;
+    let totalTime = 12;
+
+    function updateMetrics() {
+        let elapsed = (Date.now() - startTime) % totalDuration;
+        let progress = elapsed / totalDuration;
+
+        let remainingDistance = totalDistance * (1 - progress);
+        let remainingTime = Math.ceil(totalTime * (1 - progress));
+
+        distanceVal.innerText = remainingDistance.toFixed(1);
+        timeVal.innerText = remainingTime;
+
+        if (progress < 0.1) {
+            statusText.innerText = "Picked up (Mandian)";
+        } else if (progress > 0.9) {
+            statusText.innerText = "Arriving at Destination (Fawara Chowk)";
+        } else if (progress > 0.5) {
+            statusText.innerText = "In Transit (Main Road)";
+        } else {
+            statusText.innerText = "In Transit (Mandian → Fawara Chowk)";
+        }
+
+        requestAnimationFrame(updateMetrics);
+    }
+
+    updateMetrics();
+}
+
+// Form Submission (Mock)
+const orderForm = document.getElementById('order-form');
+if (orderForm) {
+    orderForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const pickup = document.getElementById('pickup').value;
+        const dropoff = document.getElementById('dropoff').value;
+        const activeVehicle = document.querySelector('.vehicle-card.active span');
+        const vehicle = activeVehicle ? activeVehicle.innerText : 'selected';
+
+        alert(`Success! Your ${vehicle} delivery from ${pickup} to ${dropoff} has been scheduled. \nOrder Status: Processing`);
+    });
+}
+
+// Initialize simulation after content is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    initTrackingSimulation();
+});

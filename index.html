@@ -97,18 +97,18 @@
                     <p>Tailored delivery options for every need in the city.</p>
                 </div>
                 <div class="services-grid">
-                    <div class="service-box glass-card" id="bike-box">
+                    <div class="service-box glass-card clickable-service" id="service-bike" data-service="bike">
                         <div class="service-icon-wrapper">🏍️</div>
                         <h3>Bike Delivery</h3>
                         <p>Fastest way to weave through Abbottabad traffic for small parcels and urgent documents.</p>
                     </div>
-                    <div class="service-box glass-card" id="car-box">
+                    <div class="service-box glass-card clickable-service" id="service-car" data-service="car">
                         <div class="service-icon-wrapper">🚗</div>
                         <h3>Car & Van Delivery</h3>
                         <p>Perfect for bulk orders, fragile items, or weather-sensitive packages requiring a closed
                             vehicle.</p>
                     </div>
-                    <div class="service-box glass-card" id="track-box">
+                    <div class="service-box glass-card clickable-service" id="service-tracking" data-service="tracking">
                         <div class="service-icon-wrapper">📍</div>
                         <h3>Real-time Tracking</h3>
                         <p>Stay informed with live GPS updates as your package moves through the city streets.</p>
@@ -302,6 +302,24 @@
             </div>
         </div>
     </footer>
+
+    <!-- Service Modal -->
+    <div id="service-modal" class="modal">
+        <div class="modal-overlay"></div>
+        <div class="modal-content glass-card">
+            <button class="close-modal" aria-label="Close Modal">&times;</button>
+            <div class="modal-inner">
+                <div class="modal-icon-header" id="modal-icon">🏍️</div>
+                <h2 id="modal-title" class="section-title">Service Name</h2>
+                <div id="modal-body" class="modal-body">
+                    <!-- Dynamic Content -->
+                </div>
+                <div class="modal-footer">
+                    <a href="#booking" class="btn-primary" id="modal-book-btn">Book This Service</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
