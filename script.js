@@ -221,4 +221,60 @@ if (orderForm) {
         alert(`Success! Your ${vehicle} delivery has been scheduled.`);
     });
 }
+// Review System Logic
+const stars = document.querySelectorAll('.star');
+const reviewForm = document.getElementById('review-form');
+const reviewSuccess = document.getElementById('review-success');
+let currentRating = 0;
+
+stars.forEach(star => {
+    star.addEventListener('mouseover', () => {
+        const rating = star.getAttribute('data-rating');
+        highlightStars(rating);
+    });
+
+    star.addEventListener('mouseout', () => {
+        highlightStars(currentRating);
+    });
+
+    star.addEventListener('click', () => {
+        currentRating = star.getAttribute('data-rating');
+        highlightStars(currentRating);
+        star.parentElement.classList.add('rated');
+    });
+});
+
+function highlightStars(rating) {
+    stars.forEach(star => {
+        if (star.getAttribute('data-rating') <= rating) {
+            star.classList.add('hover');
+        } else {
+            star.classList.remove('hover');
+        }
+
+        if (star.getAttribute('data-rating') <= currentRating) {
+            star.classList.add('active');
+        } else {
+            star.classList.remove('active');
+        }
+    });
+}
+
+if (reviewForm) {
+    reviewForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (currentRating === 0) {
+            alert("Please select a star rating!");
+            return;
+        }
+
+        // Simulated submission
+        reviewForm.style.opacity = '0';
+        setTimeout(() => {
+            reviewForm.style.display = 'none';
+            reviewSuccess.style.display = 'block';
+        }, 300);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', initTrackingSimulation);

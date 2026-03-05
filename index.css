@@ -1083,6 +1083,89 @@ footer {
     color: var(--text-muted);
 }
 
+/* Review Box Styles */
+.add-review-section {
+    margin-top: 4rem;
+    display: flex;
+    justify-content: center;
+}
+
+.review-box {
+    width: 100%;
+    max-width: 800px;
+    padding: 3rem;
+    text-align: center;
+}
+
+.review-box h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.star-rating {
+    font-size: 2.5rem;
+    color: #333;
+    margin: 1.5rem 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.star {
+    transition: all 0.3s ease;
+}
+
+.star.hover,
+.star.active {
+    color: var(--primary);
+    text-shadow: 0 0 15px var(--primary-glow);
+    transform: scale(1.2);
+}
+
+.review-box .form-grid {
+    margin: 2rem 0;
+}
+
+.review-box input,
+.review-box textarea {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--glass-border);
+    padding: 1.2rem;
+    color: white;
+    border-radius: 12px;
+    font-family: inherit;
+    transition: var(--transition);
+}
+
+.review-box input:focus,
+.review-box textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: rgba(255, 107, 0, 0.05);
+    box-shadow: 0 0 20px rgba(255, 107, 0, 0.1);
+}
+
+.review-success-msg {
+    animation: slideUpFade 0.5s ease forwards;
+}
+
+.success-icon {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+    .review-box {
+        padding: 2rem 1.5rem;
+    }
+
+    .star-rating {
+        font-size: 2rem;
+    }
+}
+
 @media (max-width: 480px) {
     .modal-content {
         padding: 2.5rem 1.5rem;
