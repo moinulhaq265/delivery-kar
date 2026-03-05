@@ -45,8 +45,16 @@ h3,
     padding: 0 2rem;
 }
 
-.accent-text {
+.user-meta i {
     color: var(--primary);
+}
+
+.static-stars {
+    color: var(--primary);
+    font-size: 0.9rem;
+    letter-spacing: 2px;
+    margin: 2px 0;
+    text-shadow: 0 0 10px var(--primary-glow);
 }
 
 .glass-card {
