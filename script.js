@@ -201,15 +201,43 @@ const serviceDetails = {
 
 document.querySelectorAll('.clickable-service').forEach(card => {
     card.addEventListener('click', () => {
-        const serviceKey = card.getAttribute('data-service');
-        const details = serviceDetails[serviceKey];
-
+        const key = card.getAttribute('data-service');
+        const details = serviceDetails[key];
         if (details && modal) {
             modalTitle.innerHTML = details.title;
             modalIcon.innerHTML = details.icon;
             modalBody.innerHTML = details.body;
+            modalBody.style.display = 'block';
+            trackerInputFlow.style.display = 'none';
+            modalTrackBtn.style.display = 'none';
+            modalActionBtn.style.display = 'inline-block';
 
+            if (key === 'tracking') {
+                modalActionBtn.innerText = 'Track Your Order';
+                modalActionBtn.onclick = () => {
+                    // Transition to ID Input
+                    modalBody.style.opacity = '0';
+                    setTimeout(() => {
+                        modalBody.style.display = 'none';
+                        trackerInputFlow.style.display = 'block';
+                        modalActionBtn.style.display = 'none';
+                        modalTrackBtn.style.display = 'inline-block';
+                        modalTrackBtn.innerText = 'Track Now';
+                        orderIdInput.focus();
+                    }, 300);
+                };
+            } else {
+                modalActionBtn.innerText = 'Book This Service';
+                modalActionBtn.onclick = () => {
+                    closeModal();
+                    const bookingSection = document.getElementById('booking');
+                    if (bookingSection) {
+                        bookingSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                };
+            }
             modal.classList.add('active');
+            modalBody.style.opacity = '1';
             document.body.style.overflow = 'hidden';
         }
     });

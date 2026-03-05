@@ -1015,19 +1015,23 @@ footer {
 /* Tracker Input Flow Styles */
 .tracker-input-container {
     margin: 2rem 0;
-    animation: fadeInScale 0.4s ease forwards;
+    animation: slideUpFade 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-@keyframes fadeInScale {
+@keyframes slideUpFade {
     from {
         opacity: 0;
-        transform: scale(0.95);
+        transform: translateY(20px);
     }
 
     to {
         opacity: 1;
-        transform: scale(1);
+        transform: translateY(0);
     }
+}
+
+#modal-body {
+    transition: opacity 0.3s ease;
 }
 
 .input-glow-wrapper {
@@ -1052,9 +1056,10 @@ footer {
 
 #order-id-input:focus {
     outline: none;
-    background: rgba(255, 107, 0, 0.05);
+    background: rgba(255, 107, 0, 0.1);
     border-bottom-color: var(--primary);
-    box-shadow: 0 10px 30px rgba(255, 107, 0, 0.1);
+    box-shadow: 0 15px 40px rgba(255, 107, 0, 0.2), 0 0 20px rgba(255, 107, 0, 0.1);
+    transform: scale(1.02);
 }
 
 .input-line {
