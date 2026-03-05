@@ -712,7 +712,15 @@ footer {
 
 .footer-brand {
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
+
+.footer-brand .logo {
+    justify-content: center;
+}
+
 
 .footer-brand p {
     color: var(--text-muted);
